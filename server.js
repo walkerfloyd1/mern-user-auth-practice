@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require("passport");
 
-const users = require("./routes/api/users");
+const users = require("./server/routes/api/users");
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.use(
 
 app.use(bodyParser.json());
 
-const db = require('../config/keys.js').mongoURI;
+const db = require('./config/keys.js').mongoURI;
 
 mongoose.connect(db, { useNewParser: true })
 .then(() => {
@@ -25,7 +25,7 @@ mongoose.connect(db, { useNewParser: true })
 
 app.use(passport.initialize());
 
-require("../config/passport")(passport);
+require("./config/passport")(passport);
 
 app.use("/api/users", users);
 

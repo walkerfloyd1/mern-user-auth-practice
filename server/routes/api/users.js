@@ -9,6 +9,55 @@ const validateLoginInput = require("../../validation/login");
 
 const User = require("../../models/User");
 
+router.post("/login", (req, res) => {
+    
+    const { errors, isValid } = validateLoginInput(req.body);
+
+    if (!isValid) {
+        returnres.status(400).json(errors);
+    }
+
+    const email = req.body.email;
+    const password = req.body.password;
+
+    User.findOne({ email }).then(
+        user => {
+            if (!user) {
+                return res.status(404).json({
+                    emailnotfound: "Email was not found"
+                });
+            }
+
+            bcrypt.compare(password, user.password).then(isMatch => {
+                if (isMatch) {
+                    const payload = {
+                        id: user.id,
+                        name: user.name
+                    };
+
+                    jwt.sign(
+                        payload,
+                        keys.secretOrKey,
+                        {
+                            expiresIn: 31556926
+                        },
+                        (err, token) => {
+                            res.json({
+                                success: true,
+                                token: "Bearer " + token
+                            });
+                        }
+                    );
+                }
+                else {
+                    return res.status(400).json({
+                        passwordincorrect: "Password Incorrect"
+                    });
+                }
+            });
+        });
+});
+
 router.post("/register", (req, res) => {
     const { errors, isValid } = validateRegisterInput(req.body);
 
@@ -44,3 +93,5 @@ router.post("/register", (req, res) => {
         }
     });
 });
+
+module.exports = router;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, BrowserRouter } from 'react-router-dom';
 
 class Landing extends Component {
     render() {
@@ -26,7 +26,9 @@ class Landing extends Component {
               passport and JWTs
                         </p>
                         <br />
+                        <BrowserRouter>
                         <div className="col s6">
+                            
                             <Link to="/register"
                             style={{
                                 width: "140px",
@@ -47,7 +49,9 @@ class Landing extends Component {
                             className="btn btn-large btn-flat waves-effect white black-text">
                                 Log In
                             </Link>
+                            
                         </div>
+                        </BrowserRouter>
                     </div>
                 </div>
             </div>

@@ -6,7 +6,7 @@ import Login from "./components/auth/Login";
 import PrivateRoute from './components/private-route/PrivateRoute';
 import Dashboard from './components/dashboard/Dashboard';
 
-import { BrowserRouter as Router, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';

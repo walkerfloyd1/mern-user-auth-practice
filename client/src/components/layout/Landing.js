@@ -2,6 +2,23 @@ import React, { Component } from 'react';
 import { Link, BrowserRouter } from 'react-router-dom';
 
 class Landing extends Component {
+
+    constructor() {
+        super()
+        this.routeLogin = this.routeLogin.bind(this);
+        this.routeRegister = this.routeRegister.bind(this);
+    }
+
+    routeLogin() {
+        let path="/login"
+        this.props.history.push(path)
+    };
+
+    routeRegister() {
+        let path="/register"
+        this.props.history.push(path)
+    };
+
     render() {
         return (
             <div style={{
@@ -35,7 +52,8 @@ class Landing extends Component {
                                 borderRadius: "3px",
                                 letterSpacing: "1.5px"
                             }}
-                            className="btn btn-large waves-effect waves-light hoverable blue accent-3">
+                            className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                            onClick={this.routeRegister}>
                                 Register
                             </Link>
                         </div>
@@ -46,10 +64,10 @@ class Landing extends Component {
                                 borderRadius: "3px",
                                 letterSpacing: "1.5px"
                             }}
+                            onClick={this.routeLogin}
                             className="btn btn-large btn-flat waves-effect white black-text">
                                 Log In
                             </Link>
-                            
                         </div>
                         </BrowserRouter>
                     </div>
